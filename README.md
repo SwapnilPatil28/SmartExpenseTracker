@@ -36,7 +36,7 @@ Smart Expense Tracker addresses these challenges by providing a lightweight, ful
 
 3. **Budget Alert System**
    - Automatic warning banner when budget is exceeded
-   - Auto-dismiss warning after 3 seconds using `setTimeout`
+   - Auto-dismiss warning after 5 seconds using `setTimeout`
    - Manual dismiss option
    - Prevents multiple warning timers from stacking
 
@@ -291,7 +291,7 @@ Requires a modern browser with ES6+ support and localStorage enabled.
    - Update remaining budget
    - Update progress bar width and color
    - Show warning if exceeded
-   - Auto-dismiss warning after 3 seconds
+   - Auto-dismiss warning after 5 seconds
 
 5. **State Management**:
    - Single source of truth (`appState` object)
@@ -356,15 +356,15 @@ This project demonstrates:
 
 ## 👨‍💻 Development Best Practices Followed
 
-- Clear function naming and documentation
-- Comments explaining complex logic
-- Modular function design
-- Input validation and error handling
+- Clear function naming and self-documenting code
+- Modular function design with single responsibility
+- Comprehensive input validation and error handling
 - Graceful degradation
 - Accessibility considerations (ARIA labels)
-- Consistent code formatting
+- Consistent code formatting and structure
 - No global scope pollution
 - Event listener cleanup where needed
+- Organized code sections with clear section headers
 
 ## 🔐 Privacy & Security
 
