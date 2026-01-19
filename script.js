@@ -9,7 +9,9 @@
 const appState = {
     expenses: [],
     monthlyBudget: 0,
-    warningTimeoutId: null
+    warningTimeoutId: null,
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear()
 };
 
 // ========================================
@@ -130,11 +132,41 @@ function saveToLocalStorage() {
     try {
         localStorage.setItem('expenseTrackerState', JSON.stringify({
             expenses: appState.expenses,
-            monthlyBudget: appState.monthlyBudget
+            monthlyBudget: appState.monthlyBudget,
+            currentMonth: appState.currentMonth,
+            currentYear: appState.currentYear
         }));
     } catch (error) {
         console.error('Error saving to localStorage:', error);
     }
+}
+
+/**
+ * Check if month has changed since last visit and reset if needed
+ */
+function checkAndResetMonth() {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+    
+    // If month or year has changed, reset to new month
+    if (appState.currentMonth !== currentMonth || appState.currentYear !== currentYear) {
+        appState.currentMonth = currentMonth;
+        appState.currentYear = currentYear;
+        console.log(`New month detected! Budget tracking reset for ${getMonthName(currentMonth)} ${currentYear}`);
+        saveToLocalStorage();
+    }
+}
+
+/**
+ * Get month name from month number
+ * @param {number} monthNum - Month number (0-11)
+ * @returns {string} Month name
+ */
+function getMonthName(monthNum) {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+    return months[monthNum];
 }
 
 /**
@@ -145,6 +177,13 @@ function loadFromLocalStorage() {
         const savedState = localStorage.getItem('expenseTrackerState');
         if (savedState) {
             const parsedState = JSON.parse(savedState);
+            appState.expenses = parsedState.expenses || [];
+            appState.monthlyBudget = parsedState.monthlyBudget || 0;
+            appState.currentMonth = parsedState.currentMonth ?? new Date().getMonth();
+            appState.currentYear = parsedState.currentYear ?? new Date().getFullYear();
+            
+            // Check if month has changed and reset if needed
+            checkAndResetMonth()
             appState.expenses = parsedState.expenses || [];
             appState.monthlyBudget = parsedState.monthlyBudget || 0;
             
@@ -163,11 +202,24 @@ function loadFromLocalStorage() {
 // ========================================
 
 /**
- * Calculate total spent amount from all expenses
- * @returns {number} Total spent amount
+ * Check if an expense belongs to the current month
+ * @param {Object} expense - Expense object with date property
+ * @returns {boolean} True if expense is from current month
+ */
+function isCurrentMonth(expense) {
+    const expenseDate = new Date(expense.date);
+    return expenseDate.getMonth() === appState.currentMonth && 
+           expenseDate.getFullYear() === appState.currentYear;
+}
+
+/**
+ * Calculate total spent amount from current month's expenses only
+ * @returns {number} Total spent amount for current month
  */
 function calculateTotalSpent() {
-    return appState.expenses.reduce((total, expense) => total + parseFloat(expense.amount), 0);
+    return appState.expenses
+        .filter(expense => isCurrentMonth(expense))
+        .reduce((total, expense) => total + parseFloat(expense.amount), 0);
 }
 
 /**
@@ -349,15 +401,15 @@ function addExpense(e) {
     
     // Simulate processing delay
     setTimeout(() => {
-        // Add to state
-        appState.expenses.unshift(expenseData); // Add to beginning of array
+        // Add to state (push to array, sorting will happen during render)
+        appState.expenses.push(expenseData);
         
         // Save to localStorage
         saveToLocalStorage();
         
         // Update UI
         updateBudgetDisplay();
-        renderExpenses();
+        renderExpenses(); // Will sort and render with proper styling
         
         // Reset form
         expenseForm.reset();
@@ -402,6 +454,10 @@ function deleteExpense(expenseId) {
 function clearAllExpenses() {
     if (appState.expenses.length === 0) {
         return;
+    // Mark as previous month expense if not from current month
+    if (!isCurrentMonth(expense)) {
+        expenseItem.classList.add('previous-month');
+    }
     }
     
     // Ask for confirmation
@@ -520,8 +576,23 @@ function renderExpenses(skipAnimation = false) {
     // Hide empty state
     emptyState.style.display = 'none';
     
+    // Sort expenses by date (newest first), then by ID (most recent first)
+    const sortedExpenses = [...appState.expenses].sort((a, b) => {
+        // First compare by date
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        
+        if (dateB.getTime() !== dateA.getTime()) {
+            return dateB.getTime() - dateA.getTime(); // Newer dates first
+        }
+        
+        // If dates are same, sort by ID (which contains timestamp)
+        // Newer IDs (created more recently) should come first
+        return b.id.localeCompare(a.id);
+    });
+    
     // Create and append expense elements
-    appState.expenses.forEach(expense => {
+    sortedExpenses.forEach(expense => {
         const expenseElement = createExpenseElement(expense, skipAnimation);
         expenseList.appendChild(expenseElement);
     });
