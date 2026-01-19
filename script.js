@@ -7,7 +7,8 @@ const appState = {
     monthlyBudget: 0,
     warningTimeoutId: null,
     currentMonth: new Date().getMonth(),
-    currentYear: new Date().getFullYear()
+    currentYear: new Date().getFullYear(),
+    selectedFilter: 'all'
 };
 
 // ========================================
@@ -33,6 +34,7 @@ const addExpenseBtn = document.getElementById('addExpenseBtn');
 const expenseList = document.getElementById('expenseList');
 const emptyState = document.getElementById('emptyState');
 const clearAllBtn = document.getElementById('clearAllBtn');
+const categoryFilters = document.getElementById('categoryFilters');
 
 const budgetWarning = document.getElementById('budgetWarning');
 const warningClose = document.getElementById('warningClose');
@@ -83,6 +85,13 @@ function getCategoryName(category) {
         'other': 'Other'
     };
     return names[category] || 'Other';
+}
+
+function filterExpensesByCategory(expenses, category) {
+    if (category === 'all') {
+        return expenses;
+    }
+    return expenses.filter(expense => expense.category === category);
 }
 
 function generateId() {
@@ -419,7 +428,9 @@ function createExpenseElement(expense, skipAnimation = false) {
 function renderExpenses(skipAnimation = false) {
     expenseList.innerHTML = '';
     
-    if (appState.expenses.length === 0) {
+    const filteredExpenses = filterExpensesByCategory(appState.expenses, appState.selectedFilter);
+    
+    if (filteredExpenses.length === 0) {
         expenseList.appendChild(emptyState);
         emptyState.style.display = 'block';
         return;
@@ -427,7 +438,7 @@ function renderExpenses(skipAnimation = false) {
     
     emptyState.style.display = 'none';
     
-    const sortedExpenses = [...appState.expenses].sort((a, b) => {
+    const sortedExpenses = [...filteredExpenses].sort((a, b) => {
         const dateA = new Date(a.date);
         const dateB = new Date(b.date);
         
@@ -495,6 +506,16 @@ function initEventListeners() {
     
     [expenseAmountInput, expenseCategorySelect, expenseDescriptionInput, expenseDateInput].forEach(input => {
         input.addEventListener('input', hideFormError);
+    });
+    
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    filterButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            filterButtons.forEach(btn => btn.classList.remove('filter-btn-active'));
+            e.target.classList.add('filter-btn-active');
+            appState.selectedFilter = e.target.getAttribute('data-category');
+            renderExpenses();
+        });
     });
 }
 

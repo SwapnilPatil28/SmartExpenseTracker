@@ -143,6 +143,22 @@
                 <h2 class="panel-title">📝 Expense History</h2>
                 <button id="clearAllBtn" class="btn btn-secondary btn-small">Clear All</button>
             </div>
+            
+            <div class="filter-section">
+                <label class="filter-label">Filter by Category:</label>
+                <div class="category-filters" id="categoryFilters">
+                    <button class="filter-btn filter-btn-active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="food">🍔 Food</button>
+                    <button class="filter-btn" data-category="transport">🚗 Transport</button>
+                    <button class="filter-btn" data-category="shopping">🛍️ Shopping</button>
+                    <button class="filter-btn" data-category="entertainment">🎬 Entertainment</button>
+                    <button class="filter-btn" data-category="healthcare">💊 Healthcare</button>
+                    <button class="filter-btn" data-category="utilities">💡 Utilities</button>
+                    <button class="filter-btn" data-category="education">📚 Education</button>
+                    <button class="filter-btn" data-category="other">📦 Other</button>
+                </div>
+            </div>
+            
             <p class="expense-list-note">💡 Budget tracks current month only. Previous months shown with reduced opacity.</p>
             
             <div class="expense-list" id="expenseList">

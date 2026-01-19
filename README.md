@@ -54,7 +54,14 @@ Smart Expense Tracker addresses these challenges by providing a lightweight, ful
    - Scrollable list with custom styled scrollbar
    - Empty state message when no expenses exist
 
-6. **Live Updates**
+6. **Category Filtering**
+   - Filter expenses by category with interactive buttons
+   - View "All" expenses or filter by specific category
+   - Real-time list updates based on selected filter
+   - Visual indicator for active filter
+   - Shows total spent across all or filtered expenses
+
+7. **Live Updates**
    - Real-time clock showing last update time using `setInterval`
    - Updates every second to show current time
    - Immediate UI updates when expenses are added or removed
@@ -152,9 +159,20 @@ element.addEventListener('submit', handler)
 ```javascript
 document.getElementById('id')
 document.querySelector('[data-expense-id="123"]')
+document.querySelectorAll('.filter-btn')
 ```
 - Access form inputs
 - Query expense items for deletion
+- Select multiple elements for batch operations
+
+### 11. **Dynamic Filtering**
+```javascript
+filterExpensesByCategory(expenses, category)
+renderExpenses()
+```
+- Filter array data based on user selection
+- Re-render filtered results dynamically
+- Maintain filter state in application state
 
 ## 🔧 Browser APIs Used
 
@@ -319,7 +337,7 @@ const appState = {
 ## 🚧 Known Limitations
 
 1. **Data Storage**: 
-   - Limited to localStorage (typically 5-10MB)
+   - Limited to localStorage
    - No cloud backup or sync across devices
    - Data tied to specific browser and domain
 
@@ -333,7 +351,6 @@ const appState = {
 
 4. **Reporting**:
    - No monthly/weekly reports or charts
-   - No expense filtering or search functionality
    - Future enhancement could add analytics dashboard
 
 5. **Multi-Budget Support**:
@@ -380,33 +397,6 @@ This project demonstrates:
 ## 📝 License
 
 This project is created for educational purposes as part of the Web Dev II Final Project.
-
-## � Submission Information
-
-**Course**: Web Dev II (Batch 2029)  
-**Submission Deadline**: 26th January, 2026  
-**Submission Form**: [https://forms.gle/mw1YThoSiEgBQeQC9](https://forms.gle/mw1YThoSiEgBQeQC9)
-
-### ✅ Submission Checklist
-- [x] Fully functional DOM-based application
-- [x] Vanilla JavaScript (No frameworks)
-- [x] Comprehensive DOM manipulation
-- [x] Event-driven interactivity
-- [x] Client-side state management
-- [x] Input validation and error handling
-- [x] LocalStorage persistence
-- [x] Responsive design
-- [x] Well-structured code
-- [x] Complete README documentation
-- [ ] Demo video (3-7 minutes)
-- [ ] GitHub repository link
-- [ ] Form submission completed
-
-## �🙏 Acknowledgments
-
-- MDN Web Docs for JavaScript and DOM API references
-- Google Fonts for the Inter typeface
-- Modern CSS best practices and design patterns
 
 ---
 
