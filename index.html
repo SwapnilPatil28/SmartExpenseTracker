@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Expense Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated gradient background -->
+    <div class="gradient-background"></div>
+
+    <!-- Main application container -->
+    <div class="app-container">
+        
+        <!-- Header section -->
+        <header class="app-header">
+            <h1 class="app-title">💰 Smart Expense Tracker</h1>
+            <p class="app-subtitle">Manage your finances with intelligent budget alerts</p>
+            <div class="live-clock" id="liveClock">Last updated: --:--:--</div>
+        </header>
+
+        <!-- Budget warning banner (hidden by default) -->
+        <div class="budget-warning" id="budgetWarning">
+            <span class="warning-icon">⚠️</span>
+            <span class="warning-text">Budget Exceeded! You've spent more than your monthly limit.</span>
+            <button class="warning-close" id="warningClose">✕</button>
+        </div>
+
+        <!-- Main content grid -->
+        <div class="content-grid">
+            
+            <!-- Left Panel: Budget Overview -->
+            <div class="panel budget-panel">
+                <h2 class="panel-title">📊 Budget Overview</h2>
+                
+                <div class="budget-input-group">
+                    <label for="monthlyBudget" class="input-label">Monthly Budget</label>
+                    <div class="input-with-icon">
+                        <span class="currency-symbol">₹</span>
+                        <input 
+                            type="number" 
+                            id="monthlyBudget" 
+                            placeholder="Enter budget"
+                            class="budget-input"
+                            min="0"
+                            step="100"
+                        >
+                    </div>
+                    <button id="setBudgetBtn" class="btn btn-primary">Set Budget</button>
+                </div>
+
+                <div class="budget-stats">
+                    <div class="stat-card stat-budget">
+                        <div class="stat-label">Monthly Budget</div>
+                        <div class="stat-value" id="budgetDisplay">₹0</div>
+                    </div>
+                    
+                    <div class="stat-card stat-spent">
+                        <div class="stat-label">Total Spent</div>
+                        <div class="stat-value" id="totalSpent">₹0</div>
+                    </div>
+                    
+                    <div class="stat-card stat-remaining">
+                        <div class="stat-label">Remaining</div>
+                        <div class="stat-value" id="remainingBudget">₹0</div>
+                    </div>
+                </div>
+
+                <div class="budget-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-label" id="progressLabel">0% spent</div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Add Expense -->
+            <div class="panel expense-form-panel">
+                <h2 class="panel-title">➕ Add Expense</h2>
+                
+                <form id="expenseForm" class="expense-form">
+                    <div class="form-group">
+                        <label for="expenseAmount" class="input-label">Amount</label>
+                        <div class="input-with-icon">
+                            <span class="currency-symbol">₹</span>
+                            <input 
+                                type="number" 
+                                id="expenseAmount" 
+                                placeholder="0.00"
+                                class="form-input"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expenseCategory" class="input-label">Category</label>
+                        <select id="expenseCategory" class="form-input" required>
+                            <option value="">Select category</option>
+                            <option value="food">🍔 Food & Dining</option>
+                            <option value="transport">🚗 Transport</option>
+                            <option value="shopping">🛍️ Shopping</option>
+                            <option value="entertainment">🎬 Entertainment</option>
+                            <option value="healthcare">💊 Healthcare</option>
+                            <option value="utilities">💡 Utilities</option>
+                            <option value="education">📚 Education</option>
+                            <option value="other">📦 Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expenseDescription" class="input-label">Description</label>
+                        <input 
+                            type="text" 
+                            id="expenseDescription" 
+                            placeholder="e.g., Lunch at restaurant"
+                            class="form-input"
+                            maxlength="50"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expenseDate" class="input-label">Date</label>
+                        <input 
+                            type="date" 
+                            id="expenseDate" 
+                            class="form-input"
+                            required
+                        >
+                    </div>
+
+                    <div class="error-message" id="formError"></div>
+
+                    <button type="submit" class="btn btn-success btn-block" id="addExpenseBtn">
+                        <span class="btn-text">Add Expense</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Expense List Section -->
+        <div class="panel expense-list-panel">
+            <div class="panel-header">
+                <h2 class="panel-title">📝 Recent Expenses</h2>
+                <button id="clearAllBtn" class="btn btn-secondary btn-small">Clear All</button>
+            </div>
+            
+            <div class="expense-list" id="expenseList">
+                <!-- Empty state message -->
+                <div class="empty-state" id="emptyState">
+                    <div class="empty-icon">📭</div>
+                    <p class="empty-text">No expenses yet. Start tracking your spending!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
