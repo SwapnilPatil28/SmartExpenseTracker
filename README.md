@@ -2,6 +2,8 @@
 
 A fully functional, interactive DOM-based web application for tracking personal expenses with intelligent budget management and real-time alerts.
 
+**Web Dev II (Batch 2029) - Final Project**
+
 ## 📋 Project Description
 
 Smart Expense Tracker is a client-side expense management application built entirely with Vanilla JavaScript, HTML5, and CSS3. The application helps users track their daily expenses, set monthly budgets, and receive instant alerts when spending exceeds their budget limits. All data is persisted locally in the browser, making it a fast and privacy-focused solution.
@@ -235,21 +237,23 @@ SmartExpenseTracker/
 
 ## 🚀 How to Run
 
-1. **Clone or Download** the repository:
-   ```bash
-   git clone <repository-url>
-   cd SmartExpenseTracker
-   ```
+### Option 1: **Live Demo (Recommended)**
+Visit the hosted version here: **https://swapnilpatil28.github.io/SmartExpenseTracker/**
 
-2. **Open in Browser**:
-   - Simply open `index.html` in any modern web browser
-   - No server or build process required
-   - Works offline after initial load
+### Option 2: **Clone or Download** the repository:
+```bash
+git clone https://github.com/swapnilpatil28/SmartExpenseTracker.git
+cd SmartExpenseTracker
+```
 
-3. **Alternatively, use VS Code Live Server**:
-   - Install "Live Server" extension in VS Code
-   - Right-click on `index.html`
-   - Select "Open with Live Server"
+Then open `index.html` in any modern web browser:
+- No server or build process required
+- Works offline after initial load
+
+### Option 3: **Use VS Code Live Server**:
+- Install "Live Server" extension in VS Code
+- Right-click on `index.html`
+- Select "Open with Live Server"
 
 ## 💻 Browser Compatibility
 
@@ -377,7 +381,28 @@ This project demonstrates:
 
 This project is created for educational purposes as part of the Web Dev II Final Project.
 
-## 🙏 Acknowledgments
+## � Submission Information
+
+**Course**: Web Dev II (Batch 2029)  
+**Submission Deadline**: 26th January, 2026  
+**Submission Form**: [https://forms.gle/mw1YThoSiEgBQeQC9](https://forms.gle/mw1YThoSiEgBQeQC9)
+
+### ✅ Submission Checklist
+- [x] Fully functional DOM-based application
+- [x] Vanilla JavaScript (No frameworks)
+- [x] Comprehensive DOM manipulation
+- [x] Event-driven interactivity
+- [x] Client-side state management
+- [x] Input validation and error handling
+- [x] LocalStorage persistence
+- [x] Responsive design
+- [x] Well-structured code
+- [x] Complete README documentation
+- [ ] Demo video (3-7 minutes)
+- [ ] GitHub repository link
+- [ ] Form submission completed
+
+## �🙏 Acknowledgments
 
 - MDN Web Docs for JavaScript and DOM API references
 - Google Fonts for the Inter typeface
