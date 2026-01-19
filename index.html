@@ -10,30 +10,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Animated gradient background -->
     <div class="gradient-background"></div>
 
-    <!-- Main application container -->
     <div class="app-container">
         
-        <!-- Header section -->
         <header class="app-header">
             <h1 class="app-title">💰 Smart Expense Tracker</h1>
             <p class="app-subtitle">Manage your finances with intelligent budget alerts</p>
             <div class="live-clock" id="liveClock">Last updated: --:--:--</div>
         </header>
 
-        <!-- Budget warning banner (hidden by default) -->
         <div class="budget-warning" id="budgetWarning">
             <span class="warning-icon">⚠️</span>
             <span class="warning-text">Budget Exceeded! You've spent more than your monthly limit.</span>
             <button class="warning-close" id="warningClose">✕</button>
         </div>
 
-        <!-- Main content grid -->
         <div class="content-grid">
             
-            <!-- Left Panel: Budget Overview -->
             <div class="panel budget-panel">
                 <h2 class="panel-title">📊 Budget Overview</h2>
                 
@@ -78,7 +72,6 @@
                 </div>
             </div>
 
-            <!-- Right Panel: Add Expense -->
             <div class="panel expense-form-panel">
                 <h2 class="panel-title">➕ Add Expense</h2>
                 
@@ -145,7 +138,6 @@
             </div>
         </div>
 
-        <!-- Expense List Section -->
         <div class="panel expense-list-panel">
             <div class="panel-header">
                 <h2 class="panel-title">📝 Expense History</h2>
@@ -154,7 +146,6 @@
             <p class="expense-list-note">💡 Budget tracks current month only. Previous months shown with reduced opacity.</p>
             
             <div class="expense-list" id="expenseList">
-                <!-- Empty state message -->
                 <div class="empty-state" id="emptyState">
                     <div class="empty-icon">📭</div>
                     <p class="empty-text">No expenses yet. Start tracking your spending!</p>
